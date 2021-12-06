@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 
 import { Context } from "../context";
 
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 import axios from "axios";
 
