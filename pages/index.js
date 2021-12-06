@@ -2,20 +2,35 @@ import React, { useContext } from "react";
 
 import { Context } from "../context";
 
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 
 import axios from "axios";
 
 export default function Auth() {
-  const { setUsername, setSecret } = useContext(Context);
+  const { username, secret, setUsername, setSecret } = useContext(Context);
+  const router = useRouter();
+
+  function onSubmit(e) {
+    e.preventDefault();
+
+    // validate inputs
+    if (username.length === 0 || secret.length === 0) return;
+    axios
+      .put(
+        "https://api.chatengine.io/users",
+        { username, secret },
+        { headers: { "Private-key": process.env.KEY } }
+      )
+      .then((r) => router.push("/chats"));
+  }
 
   return (
     <div className="background">
       <div className="auth-container">
-        <form className="auth-form" onSubmit={(e) => e.preventDefault()}>
+        <form className="auth-form" onSubmit={(e) => onSubmit(e)}>
           <div className="auth-title">NextJS Chat</div>
 
-          <div classNmae="input-container">
+          <div className="input-container">
             <input
               placeholder="Email"
               className="text-input"
@@ -23,7 +38,7 @@ export default function Auth() {
             ></input>
           </div>
 
-          <div classNmae="input-container">
+          <div className="input-container">
             <input
               type="password"
               placeholder="Password"
