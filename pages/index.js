@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-
+import Head from "next/head";
 import { Context } from "../context";
 
 import { useRouter } from "next/router";
@@ -26,6 +26,11 @@ export default function Auth() {
 
   return (
     <div className="background">
+      <Head>
+        <title>Chat</title>
+        <meta name="description" content="Chat App" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <div className="auth-container">
         <form className="auth-form" onSubmit={(e) => onSubmit(e)}>
           <div className="auth-title">NextJS Chat</div>
